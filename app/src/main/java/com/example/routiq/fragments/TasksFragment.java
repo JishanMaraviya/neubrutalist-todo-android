@@ -1,5 +1,8 @@
 package com.example.routiq.fragments;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.routiq.AddTaskActivity;
 import com.example.routiq.AppDatabase;
 import com.example.routiq.R;
+import com.example.routiq.ReminderReceiver;
 import com.example.routiq.Task;
 import com.example.routiq.adapters.TaskAdapter;
 import com.google.android.material.chip.ChipGroup;
@@ -103,12 +107,25 @@ public class TasksFragment extends Fragment {
 
         adapter = new TaskAdapter(filteredList, task -> {
             db.taskDao().update(task);
+            if (task.isCompleted) {
+                cancelAlarm(task);
+            }
             loadTasks();
         }, task -> {
+            cancelAlarm(task);
             db.taskDao().delete(task);
             loadTasks();
         });
         recyclerView.setAdapter(adapter);
+    }
+
+    private void cancelAlarm(Task task) {
+        Intent intent = new Intent(getContext(), ReminderReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), task.id, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
     }
 
     private void setupSwipeToDelete() {
@@ -122,6 +139,7 @@ public class TasksFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 Task taskToDelete = adapter.getTaskAt(position);
+                cancelAlarm(taskToDelete);
                 db.taskDao().delete(taskToDelete);
                 Toast.makeText(getContext(), "Task deleted", Toast.LENGTH_SHORT).show();
                 loadTasks();
