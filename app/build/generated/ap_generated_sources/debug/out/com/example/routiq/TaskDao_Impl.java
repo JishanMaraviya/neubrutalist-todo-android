@@ -35,7 +35,7 @@ public final class TaskDao_Impl implements TaskDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "INSERT OR ABORT INTO `tasks` (`id`,`title`,`description`,`timestamp`,`isCompleted`,`reminderTime`,`category`,`priority`,`subtasksJson`,`isRecurring`,`nagUntilComplete`,`lastUpdated`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?)";
+        return "INSERT OR ABORT INTO `tasks` (`id`,`title`,`description`,`timestamp`,`isCompleted`,`reminderTime`,`category`,`priority`,`subtasksJson`,`isRecurring`,`nagUntilComplete`,`nagIntervalMinutes`,`lastUpdated`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -70,7 +70,8 @@ public final class TaskDao_Impl implements TaskDao {
         statement.bindLong(10, _tmp_1);
         final int _tmp_2 = entity.nagUntilComplete ? 1 : 0;
         statement.bindLong(11, _tmp_2);
-        statement.bindLong(12, entity.lastUpdated);
+        statement.bindLong(12, entity.nagIntervalMinutes);
+        statement.bindLong(13, entity.lastUpdated);
       }
     };
     this.__deletionAdapterOfTask = new EntityDeletionOrUpdateAdapter<Task>(__db) {
@@ -89,7 +90,7 @@ public final class TaskDao_Impl implements TaskDao {
       @Override
       @NonNull
       protected String createQuery() {
-        return "UPDATE OR ABORT `tasks` SET `id` = ?,`title` = ?,`description` = ?,`timestamp` = ?,`isCompleted` = ?,`reminderTime` = ?,`category` = ?,`priority` = ?,`subtasksJson` = ?,`isRecurring` = ?,`nagUntilComplete` = ?,`lastUpdated` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `tasks` SET `id` = ?,`title` = ?,`description` = ?,`timestamp` = ?,`isCompleted` = ?,`reminderTime` = ?,`category` = ?,`priority` = ?,`subtasksJson` = ?,`isRecurring` = ?,`nagUntilComplete` = ?,`nagIntervalMinutes` = ?,`lastUpdated` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -124,8 +125,9 @@ public final class TaskDao_Impl implements TaskDao {
         statement.bindLong(10, _tmp_1);
         final int _tmp_2 = entity.nagUntilComplete ? 1 : 0;
         statement.bindLong(11, _tmp_2);
-        statement.bindLong(12, entity.lastUpdated);
-        statement.bindLong(13, entity.id);
+        statement.bindLong(12, entity.nagIntervalMinutes);
+        statement.bindLong(13, entity.lastUpdated);
+        statement.bindLong(14, entity.id);
       }
     };
   }
@@ -185,6 +187,7 @@ public final class TaskDao_Impl implements TaskDao {
       final int _cursorIndexOfSubtasksJson = CursorUtil.getColumnIndexOrThrow(_cursor, "subtasksJson");
       final int _cursorIndexOfIsRecurring = CursorUtil.getColumnIndexOrThrow(_cursor, "isRecurring");
       final int _cursorIndexOfNagUntilComplete = CursorUtil.getColumnIndexOrThrow(_cursor, "nagUntilComplete");
+      final int _cursorIndexOfNagIntervalMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "nagIntervalMinutes");
       final int _cursorIndexOfLastUpdated = CursorUtil.getColumnIndexOrThrow(_cursor, "lastUpdated");
       final List<Task> _result = new ArrayList<Task>(_cursor.getCount());
       while (_cursor.moveToNext()) {
@@ -227,6 +230,7 @@ public final class TaskDao_Impl implements TaskDao {
         final int _tmp_2;
         _tmp_2 = _cursor.getInt(_cursorIndexOfNagUntilComplete);
         _item.nagUntilComplete = _tmp_2 != 0;
+        _item.nagIntervalMinutes = _cursor.getInt(_cursorIndexOfNagIntervalMinutes);
         _item.lastUpdated = _cursor.getLong(_cursorIndexOfLastUpdated);
         _result.add(_item);
       }
@@ -257,6 +261,7 @@ public final class TaskDao_Impl implements TaskDao {
       final int _cursorIndexOfSubtasksJson = CursorUtil.getColumnIndexOrThrow(_cursor, "subtasksJson");
       final int _cursorIndexOfIsRecurring = CursorUtil.getColumnIndexOrThrow(_cursor, "isRecurring");
       final int _cursorIndexOfNagUntilComplete = CursorUtil.getColumnIndexOrThrow(_cursor, "nagUntilComplete");
+      final int _cursorIndexOfNagIntervalMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "nagIntervalMinutes");
       final int _cursorIndexOfLastUpdated = CursorUtil.getColumnIndexOrThrow(_cursor, "lastUpdated");
       final Task _result;
       if (_cursor.moveToFirst()) {
@@ -298,6 +303,7 @@ public final class TaskDao_Impl implements TaskDao {
         final int _tmp_2;
         _tmp_2 = _cursor.getInt(_cursorIndexOfNagUntilComplete);
         _result.nagUntilComplete = _tmp_2 != 0;
+        _result.nagIntervalMinutes = _cursor.getInt(_cursorIndexOfNagIntervalMinutes);
         _result.lastUpdated = _cursor.getLong(_cursorIndexOfLastUpdated);
       } else {
         _result = null;
@@ -331,6 +337,7 @@ public final class TaskDao_Impl implements TaskDao {
       final int _cursorIndexOfSubtasksJson = CursorUtil.getColumnIndexOrThrow(_cursor, "subtasksJson");
       final int _cursorIndexOfIsRecurring = CursorUtil.getColumnIndexOrThrow(_cursor, "isRecurring");
       final int _cursorIndexOfNagUntilComplete = CursorUtil.getColumnIndexOrThrow(_cursor, "nagUntilComplete");
+      final int _cursorIndexOfNagIntervalMinutes = CursorUtil.getColumnIndexOrThrow(_cursor, "nagIntervalMinutes");
       final int _cursorIndexOfLastUpdated = CursorUtil.getColumnIndexOrThrow(_cursor, "lastUpdated");
       final List<Task> _result = new ArrayList<Task>(_cursor.getCount());
       while (_cursor.moveToNext()) {
@@ -373,6 +380,7 @@ public final class TaskDao_Impl implements TaskDao {
         final int _tmp_2;
         _tmp_2 = _cursor.getInt(_cursorIndexOfNagUntilComplete);
         _item.nagUntilComplete = _tmp_2 != 0;
+        _item.nagIntervalMinutes = _cursor.getInt(_cursorIndexOfNagIntervalMinutes);
         _item.lastUpdated = _cursor.getLong(_cursorIndexOfLastUpdated);
         _result.add(_item);
       }

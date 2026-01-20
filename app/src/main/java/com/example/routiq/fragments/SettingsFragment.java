@@ -8,9 +8,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,8 +33,6 @@ public class SettingsFragment extends Fragment {
         prefs = getContext().getSharedPreferences("RoutiqPrefs", Context.MODE_PRIVATE);
 
         setupDarkMode(view);
-        setupNagInterval(view);
-        setupAutoDelete(view);
         
         view.findViewById(R.id.btnExportData).setOnClickListener(v -> exportData());
 
@@ -56,34 +51,6 @@ public class SettingsFragment extends Fragment {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
-        });
-    }
-
-    private void setupNagInterval(View view) {
-        Spinner spinner = view.findViewById(R.id.spinnerNagInterval);
-        String[] intervals = {"5 Minutes", "10 Minutes", "15 Minutes", "30 Minutes"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, intervals);
-        spinner.setAdapter(adapter);
-
-        int savedPos = prefs.getInt("nagIntervalPos", 0);
-        spinner.setSelection(savedPos);
-
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                int minutes = Integer.parseInt(intervals[position].split(" ")[0]);
-                prefs.edit().putInt("nagInterval", minutes).putInt("nagIntervalPos", position).apply();
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-    }
-
-    private void setupAutoDelete(View view) {
-        SwitchCompat switchAuto = view.findViewById(R.id.switchAutoDelete);
-        switchAuto.setChecked(prefs.getBoolean("autoDelete", false));
-        switchAuto.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            prefs.edit().putBoolean("autoDelete", isChecked).apply();
         });
     }
 

@@ -35,11 +35,14 @@ public class AddTaskActivity extends AppCompatActivity {
     private TextView tvReminderValue;
     private Calendar reminderCalendar;
     private AppDatabase db;
-    private Spinner spinnerCategory;
+    private Spinner spinnerCategory, spinnerNagInterval;
     private ChipGroup cgPriority;
     private CheckBox cbRecurring, cbNag;
-    private LinearLayout llSubtasksContainer;
+    private LinearLayout llSubtasksContainer, llNagOptions;
     private List<String> subtasks = new ArrayList<>();
+
+    private final String[] nagOptions = {"5 Minutes", "10 Minutes", "15 Minutes", "30 Minutes", "1 Hour", "2 Hours"};
+    private final int[] nagMinutes = {5, 10, 15, 30, 60, 120};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,18 +54,29 @@ public class AddTaskActivity extends AppCompatActivity {
         etSubtaskTitle = findViewById(R.id.etSubtaskTitle);
         tvReminderValue = findViewById(R.id.tvReminderValue);
         spinnerCategory = findViewById(R.id.spinnerCategory);
+        spinnerNagInterval = findViewById(R.id.spinnerNagInterval);
         cgPriority = findViewById(R.id.cgPriority);
         cbRecurring = findViewById(R.id.cbRecurring);
         cbNag = findViewById(R.id.cbNag);
         llSubtasksContainer = findViewById(R.id.llSubtasksContainer);
+        llNagOptions = findViewById(R.id.llNagOptions);
         
         Button btnAddSubtask = findViewById(R.id.btnAddSubtask);
         Button btnPickDateTime = findViewById(R.id.btnPickDateTime);
         Button btnSave = findViewById(R.id.btnSaveTask);
 
+        // Categories
         String[] categories = {"General", "Work", "Personal", "Study", "Health", "Finance"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
-        spinnerCategory.setAdapter(adapter);
+        ArrayAdapter<String> catAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, categories);
+        spinnerCategory.setAdapter(catAdapter);
+
+        // Nag Intervals
+        ArrayAdapter<String> nagAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nagOptions);
+        spinnerNagInterval.setAdapter(nagAdapter);
+
+        cbNag.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            llNagOptions.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+        });
 
         btnAddSubtask.setOnClickListener(v -> addSubtask());
         btnPickDateTime.setOnClickListener(v -> showDateTimePicker());
@@ -72,7 +86,6 @@ public class AddTaskActivity extends AppCompatActivity {
     private void addSubtask() {
         String subTitle = etSubtaskTitle.getText().toString().trim();
         if (subTitle.isEmpty()) return;
-
         subtasks.add(subTitle);
         renderSubtasks();
         etSubtaskTitle.setText("");
@@ -85,7 +98,6 @@ public class AddTaskActivity extends AppCompatActivity {
             View view = LayoutInflater.from(this).inflate(R.layout.item_subtask_input, llSubtasksContainer, false);
             TextView tv = view.findViewById(R.id.tvSubtaskName);
             View btnRemove = view.findViewById(R.id.btnRemoveSubtask);
-            
             tv.setText(subTitle);
             int index = i;
             btnRemove.setOnClickListener(v -> {
@@ -106,7 +118,6 @@ public class AddTaskActivity extends AppCompatActivity {
                 selected.set(Calendar.MINUTE, minute);
                 selected.set(Calendar.SECOND, 0);
                 reminderCalendar = selected;
-                
                 SimpleDateFormat sdf = new SimpleDateFormat("MMM dd, HH:mm", Locale.getDefault());
                 tvReminderValue.setText(sdf.format(selected.getTime()));
             }, current.get(Calendar.HOUR_OF_DAY), current.get(Calendar.MINUTE), false).show();
@@ -122,7 +133,6 @@ public class AddTaskActivity extends AppCompatActivity {
 
         long remTime = (reminderCalendar != null) ? reminderCalendar.getTimeInMillis() : 0;
         Task task = new Task(title, "", System.currentTimeMillis(), remTime);
-        
         task.category = spinnerCategory.getSelectedItem().toString();
         
         int priority = 1;
@@ -133,8 +143,10 @@ public class AddTaskActivity extends AppCompatActivity {
         
         task.isRecurring = cbRecurring.isChecked();
         task.nagUntilComplete = cbNag.isChecked();
+        if (task.nagUntilComplete) {
+            task.nagIntervalMinutes = nagMinutes[spinnerNagInterval.getSelectedItemPosition()];
+        }
 
-        // Convert subtasks to JSON
         JSONArray array = new JSONArray();
         for (String s : subtasks) {
             try {
@@ -152,8 +164,6 @@ public class AddTaskActivity extends AppCompatActivity {
         if (remTime > 0) {
             scheduleNotification(task);
         }
-
-        Toast.makeText(this, "Task created!", Toast.LENGTH_SHORT).show();
         finish();
     }
 
@@ -161,15 +171,13 @@ public class AddTaskActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ReminderReceiver.class);
         intent.putExtra("taskTitle", task.title);
         intent.putExtra("taskId", task.id);
-        
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, task.id, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        
         if (alarmManager != null) {
             long triggerAt = task.reminderTime;
-            
             if (task.nagUntilComplete) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAt, 5 * 60 * 1000, pendingIntent);
+                long intervalMillis = (long) task.nagIntervalMinutes * 60 * 1000;
+                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAt, intervalMillis, pendingIntent);
             } else if (task.isRecurring) {
                 alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, triggerAt, AlarmManager.INTERVAL_DAY, pendingIntent);
             } else {

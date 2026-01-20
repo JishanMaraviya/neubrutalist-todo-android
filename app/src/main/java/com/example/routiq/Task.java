@@ -18,7 +18,8 @@ public class Task {
     public int priority; // 0: Low, 1: Medium, 2: High
     public String subtasksJson; // JSON string for checklist
     public boolean isRecurring;
-    public boolean nagUntilComplete; // Nag every 5 minutes
+    public boolean nagUntilComplete;
+    public int nagIntervalMinutes; // New field for custom nag interval
     public long lastUpdated;
 
     public Task(String title, String description, long timestamp, long reminderTime) {
@@ -32,6 +33,7 @@ public class Task {
         this.subtasksJson = "[]";
         this.isRecurring = false;
         this.nagUntilComplete = false;
+        this.nagIntervalMinutes = 5; // Default 5 mins
         this.lastUpdated = System.currentTimeMillis();
     }
 }

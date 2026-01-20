@@ -3382,6 +3382,7 @@ id line3
 id linear
 id listMode
 id list_item
+id llNagOptions
 id llSubtaskInput
 id llSubtasksContainer
 id llSubtasksDisplay
@@ -3587,7 +3588,6 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
-id switchAutoDelete
 id switchDarkMode
 id tabMode
 id tag_accessibility_actions

@@ -49,6 +49,7 @@ id fabAddTask
 id fragment_container
 id guideline
 id infoLayout
+id llNagOptions
 id llSubtaskInput
 id llSubtasksContainer
 id llSubtasksDisplay
@@ -67,7 +68,6 @@ id spinnerCategory
 id spinnerNagInterval
 id statName
 id statValue
-id switchAutoDelete
 id switchDarkMode
 id textViewTaskTime
 id textViewTaskTitle

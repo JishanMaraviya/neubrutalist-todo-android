@@ -1,15 +1,19 @@
 [
     {
+        "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\layout_item_subtask_input.xml.flat",
+        "source": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-main-36:\\layout\\item_subtask_input.xml"
+    },
+    {
         "merged": "com.example.routiq.app-debug-34:/layout_activity_add_task.xml.flat",
         "source": "com.example.routiq.app-main-36:/layout/activity_add_task.xml"
     },
     {
-        "merged": "com.example.routiq.app-debug-34:/layout_item_subtask_display.xml.flat",
-        "source": "com.example.routiq.app-main-36:/layout/item_subtask_display.xml"
-    },
-    {
         "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\layout_item_stat.xml.flat",
         "source": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-main-36:\\layout\\item_stat.xml"
+    },
+    {
+        "merged": "com.example.routiq.app-debug-34:/layout_fragment_settings.xml.flat",
+        "source": "com.example.routiq.app-main-36:/layout/fragment_settings.xml"
     },
     {
         "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\drawable_neubrutalism_card_bg.xml.flat",
@@ -26,10 +30,6 @@
     {
         "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\mipmap-mdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-main-36:\\mipmap-mdpi\\ic_launcher_round.webp"
-    },
-    {
-        "merged": "com.example.routiq.app-debug-34:/layout_item_task.xml.flat",
-        "source": "com.example.routiq.app-main-36:/layout/item_task.xml"
     },
     {
         "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\layout_activity_add_task.xml.flat",
@@ -50,10 +50,6 @@
     {
         "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\xml_backup_rules.xml.flat",
         "source": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-main-36:\\xml\\backup_rules.xml"
-    },
-    {
-        "merged": "com.example.routiq.app-debug-34:/layout_item_subtask_input.xml.flat",
-        "source": "com.example.routiq.app-main-36:/layout/item_subtask_input.xml"
     },
     {
         "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\drawable_neubrutalism_button_bg.xml.flat",
@@ -106,6 +102,10 @@
     {
         "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\drawable_ic_launcher_foreground.xml.flat",
         "source": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-main-36:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\layout_item_subtask_display.xml.flat",
+        "source": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-main-36:\\layout\\item_subtask_display.xml"
     },
     {
         "merged": "C:\\Users\\jisha\\.gradle\\daemon\\8.13\\com.example.routiq.app-debug-34:\\xml_file_paths.xml.flat",
