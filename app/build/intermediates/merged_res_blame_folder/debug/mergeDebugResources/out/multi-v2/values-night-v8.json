@@ -4,26 +4,7 @@
             "outputFile": "com.example.routiq.app-mergeDebugResources-32:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\jisha\\StudioProjects\\Routiq\\app\\src\\main\\res\\values-night\\themes.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "100",
-                        "endLines": "5",
-                        "endColumns": "12",
-                        "endOffsets": "313"
-                    },
-                    "to": {
-                        "startLines": "12",
-                        "startColumns": "4",
-                        "startOffsets": "510",
-                        "endLines": "15",
-                        "endColumns": "12",
-                        "endOffsets": "619"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\jisha\\StudioProjects\\Routiq\\app\\src\\main\\res\\values-night\\colors.xml",
+                    "source": "C:\\Users\\jisha\\StudioProjects\\neubrutalist-todo-android\\app\\src\\main\\res\\values-night\\colors.xml",
                     "from": {
                         "startLines": "10,9,8,7,6,5,2,11,12,3",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -54,6 +35,25 @@
                         "startOffsets": "624,694,778,862,958,1060,1162,4144",
                         "endColumns": "69,83,83,95,101,101,93,88",
                         "endOffsets": "689,773,857,953,1055,1157,1251,4228"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\jisha\\StudioProjects\\neubrutalist-todo-android\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "102",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "318"
+                    },
+                    "to": {
+                        "startLines": "12",
+                        "startColumns": "4",
+                        "startOffsets": "510",
+                        "endLines": "15",
+                        "endColumns": "12",
+                        "endOffsets": "619"
                     }
                 },
                 {
