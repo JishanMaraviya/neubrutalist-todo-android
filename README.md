@@ -1,4 +1,4 @@
-# Routiq - Neobrutalist Task Manager
+# - Todo App
 
 Routiq is a powerful, productivity-focused Android application designed with a **Neobrutalist** aesthetic. It combines bold visuals with robust task management features to help users stay organized without the clutter in a stylish, modern way.
 
@@ -19,56 +19,4 @@ The primary goal of Routiq is to provide a distraction-free environment where us
 *   **Calendar View**: visualize your schedule with a dedicated monthly calendar interface.
 *   **Productivity Stats**: track your progress with the built-in statistics dashboard.
 *   **Data Persistence**: all data is stored locally using **Room Database**, ensuring your tasks are safe and accessible offline.
-
-## 🎨 Design Style: Neobrutalism
-
-Routiq features:
-*   **High Contrast**: Pure black text on vibrant backgrounds.
-*   **Thick Borders**: Elements are outlined with distinct strokes.
-*   **Geometric Shapes**: Sharp corners and structured layouts.
-*   **Bold Typography**: Easy-to-read, impactful fonts.
-
-## 🛠 Tech Stack
-
-*   **Language**: Java
-*   **Platform**: Native Android
-*   **Database**: Room Database (SQLite abstraction)
-*   **Architecture**: MVVM / Fragment-based
-*   **UI Components**:
-    *   ConstraintLayout
-    *   RecyclerView
-    *   Material Design Components
-    *   Custom Drawable Resources (for Neobrutalist styling)
-*   **Core APIs**:
-    *   `AlarmManager` & `BroadcastReceiver` (Notifications)
-    *   `ViewModel` & `LiveData` (State Management)
-
-## 🚀 Getting Started
-
-### Prerequisites
-*   Android Studio Iguana or newer
-*   JDK 11 or newer
-*   Android SDK Platform 34 (UpsideDownCake)
-
-### Installation
-1.  **Clone the repository**:
-    ```bash
-    git clone https://github.com/JishanMaraviya/neubrutalist-todo-android.git
-    ```
-2.  **Open in Android Studio**:
-    *   Launch Android Studio.
-    *   Select "Open" and navigate to the cloned project directory.
-3.  **Build the Project**:
-    *   Let Gradle sync the dependencies.
-    *   Click the **Run** button (green arrow) to deploy to an emulator or physical device.
-
-## 📱 How to Use
-
-1.  **Dashboard**: The home screen lists your current tasks.
-2.  **Add Task**: Tap the Floating Action Button (+) to create a new task. Enter a title, description, date, and time.
-3.  **Search**: Use the search bar at the top to filter tasks by name.
-4.  **Filter**: Use the chips (All, Pending, Completed) to filter the list.
-5.  **Complete**: Tap on a task item to edit or mark it as done.
-6.  **Delete**: Swipe a task to the left or right to remove it permanently.
-7.  **Navigation**: Use the Bottom Navigation Bar to switch between Tasks, Calendar, Stats, and Settings.
 
